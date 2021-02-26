@@ -52,7 +52,7 @@
         </task>
         <task id="29" name="Исследование потоков и структуры информации. Интерфейс пользователя" meeting="false" start="2021-03-29" duration="10" complete="0" expand="true">
             <task id="30" name="Проектирование БД" color="#8cb6ce" meeting="false" start="2021-03-29" duration="5" complete="0" expand="true"/>
-            <task id="32" name="Проектирвание UI/UX" color="#8cb6ce" meeting="false" start="2021-04-05" duration="5" complete="0" expand="true"/>
+            <task id="32" name="Проектирование UI/UX" color="#8cb6ce" meeting="false" start="2021-04-05" duration="5" complete="0" expand="true"/>
         </task>
         <task id="34" name="Проектирование архитекты и защиты информации АС" meeting="false" start="2021-04-12" duration="10" complete="0" expand="true">
             <task id="35" name="Защита данных при проектировании АС. Анализ рисков информационной безопасности" color="#8cb6ce" meeting="false" start="2021-04-12" duration="5" complete="0" expand="true"/>
