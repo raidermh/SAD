@@ -3,5 +3,30 @@
 {% block title %}Проекты{% endblock %}
 
 {% block content %}
-    <h2>Здесь будет список проектов</h2>
+    <h2>Список проектов:</h2>
+    <button type="button" id="toggle_add_project">+ Добавить проект</button>
+    <form id="add_project" style="display: none;" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Сохранить</button>
+    </form>
+    <table>
+        <thead>
+            <th>Название</th>
+            <th>Статус</th>
+            <th>Дата создания</th>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.state }}</td>
+                <td>{{ project.create_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        toggleForm('toggle_add_project', 'add_project');
+    </script>
 {% endblock %}

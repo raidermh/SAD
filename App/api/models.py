@@ -12,20 +12,20 @@ class MisiksUser(User):
         return "%s %s %s" % (self.first_name, self.patronymic_name, self.last_name)
 
 
+class ProjectState(models.TextChoices):
+    NEW = 'new'
+    IN_PROGRESS = 'inProgress'
+    DONE = 'done'
+    CANCELLED = 'cancelled'
+
+
 class Project(models.Model):
-
-    class ProjectState(models.IntegerChoices):
-        NEW = 1, 'new'
-        IN_PROGRESS = 2, 'inProgress'
-        DONE = 3, 'done'
-        CANCELLED = 4, 'cancelled'
-
     name = models.CharField(max_length=300)
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)
     author = models.ForeignKey(MisiksUser, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=1000)
-    state = models.IntegerField(default=ProjectState.NEW, choices=ProjectState.choices)
+    state = models.CharField(default=ProjectState.NEW, choices=ProjectState.choices, max_length=10)
 
     def __str__(self):
         return self.name

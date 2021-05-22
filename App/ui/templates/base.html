@@ -6,7 +6,9 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}"/>
     {% if user.is_authenticated %}
-    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'menu.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'content.css' %}"/>
+    <script src="{% static 'toggleForm.js' %}"></script>
     {% else %}
     <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}"/>
     {% endif %}

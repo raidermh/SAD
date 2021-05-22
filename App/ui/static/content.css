@@ -1,0 +1,41 @@
+div#content {
+    margin: 1rem 1.25rem;
+}
+
+div#content h2 {
+    margin-bottom: 0.5rem;
+}
+
+div#content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+}
+
+div#content table th, div#content table td {
+    border: 1px solid rgba(0,0,0,0.59);
+    text-align: center;
+    padding: 0.5rem;
+}
+
+div#content button {
+    background-color: rgba(0,61,230,1);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border-style: none;
+    cursor: pointer;
+}
+
+div#content form {
+    margin-top: 0.5rem;
+}
+
+div#content form textarea {
+    vertical-align: top;
+}
+
+div#content form button {
+    float: right;
+    margin-bottom: 0.5rem;
+}

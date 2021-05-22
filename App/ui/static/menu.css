@@ -13,8 +13,7 @@ div#nav a:hover {
     text-decoration: underline;
 }
 
-div#nav ul {
-    list-style-type: none;
+div#nav {
     text-align: center;
 }
 
@@ -30,8 +29,4 @@ div#nav ul li:first-child {
 
 div#nav ul li:last-child {
     float: right;
-}
-
-div#content {
-    margin: 1rem 1.25rem;
 }

@@ -4,3 +4,7 @@
     font-family: Verdana, sans-serif;
     color: rgba(0,0,0,0.59);
 }
+
+ul {
+    list-style-type: none;
+}
