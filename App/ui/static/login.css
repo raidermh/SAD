@@ -1,0 +1,26 @@
+form#login_form {
+    margin: 10%;
+    text-align: center;
+    padding: 1.25rem;
+    border: 2px solid rgba(0,61,230,1);
+    border-radius: 1rem;
+}
+
+form#login_form p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+}
+
+form#login_form p input {
+    margin-left: 0.25rem;
+    font-size: 1.25rem;
+}
+
+form#login_form button {
+    background-color: rgba(0,61,230,1);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    border-style: none;
+    cursor: pointer;
+}

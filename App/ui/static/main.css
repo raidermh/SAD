@@ -1,0 +1,37 @@
+div#nav {
+    background-color: rgba(0,61,230,1);
+    padding: 1rem;
+}
+
+div#nav a {
+    color: white;
+    text-decoration: none;
+}
+
+div#nav a:hover {
+    color: rgba(255,255,255,0.75);
+    text-decoration: underline;
+}
+
+div#nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+div#nav ul li {
+    display: inline;
+    margin: 0 0.25rem;
+}
+
+div#nav ul li:first-child {
+    float: left;
+    color: white;
+}
+
+div#nav ul li:last-child {
+    float: right;
+}
+
+div#content {
+    margin: 1rem 1.25rem;
+}
