@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ requirement.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ requirement.name }}</h2>
+    <button type="button" id="toggle_change_requirement">+ Изменить требование</button>
+    <a id="delete" href="./delete">Удалить</a>
+    <form id="change_requirement" style="display: none;" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Сохранить</button>
+    </form>
+    <div>
+        <div class="quarter">
+            <h3>Проект:</h3>
+            <p><a href="/project/{{ requirement.project_id }}/">{{ requirement.project }}</a></p>
+            <h3>Тип:</h3>
+            <p>{{ requirement.type }}</p>
+            <h3>Статус:</h3>
+            <p>{{ requirement.status }}</p>
+            <h3>Автор:</h3>
+            <p>{{ requirement.author }}</p>
+            <h3>Дата создания:</h3>
+            <p>{{ requirement.create_date }}</p>
+            <h3>Дата последнего изменения:</h3>
+            <p>{{ requirement.modify_date }}</p>
+        </div>
+        <div class="three_quarters">
+            <h3>Описание:</h3>
+            <p>{{ requirement.description }}</p>
+        </div>
+    </div>
+    <script>
+        toggleForm('toggle_change_requirement', 'change_requirement');
+    </script>
+{% endblock %}

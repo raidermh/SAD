@@ -18,6 +18,10 @@ router.register(r'requirements', api_views.RequirementViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', ui_views.projects),
+    path('project/<int:project_id>/', ui_views.project),
+    path('project/<int:project_id>/delete/', ui_views.delete_project),
+    path('requirement/<int:requirement_id>/', ui_views.requirement),
+    path('requirement/<int:requirement_id>/delete/', ui_views.delete_requirement),
     path('releases/', ui_views.releases),
     re_path(r'(.*)logout/$', ui_views.logout_view),
     path('admin/', admin.site.urls),

@@ -59,28 +59,29 @@ class Release(models.Model):
         return "%s %s, согласовал %s" % (self.date, self.specification, self.approver)
 
 
+class RequirementType(models.TextChoices):
+    BUSINESS = 'Бизнес'
+    FUNCTIONAL = 'Функциональные'
+
+
+class RequirementStatus(models.TextChoices):
+    NEW = 'new'
+    IN_PROGRESS = 'inProgress'
+    CORRECTION = 'correction'
+    DONE = 'done'
+    AT_APPROVAL = 'atApproval'
+    APPROVED = 'approved'
+
+
 class Requirement(models.Model):
-    
-    class RequirementType(models.IntegerChoices):
-        BUSINESS = 1, 'Бизнес'
-        FUNCTIONAL = 2, 'Функциональные'
-
-    class RequirementStatus(models.IntegerChoices):
-        NEW = 1, 'new'
-        IN_PROGRESS = 2, 'inProgress'
-        CORRECTION = 3, 'correction'
-        DONE = 4, 'done'
-        AT_APPROVAL = 5, 'atApproval'
-        APPROVED = 6, 'approved'
-
     name = models.CharField(max_length=500)
     project = models.ForeignKey(Project, related_name='requirements', on_delete=models.CASCADE)
-    type = models.IntegerField(choices=RequirementType.choices)
+    type = models.CharField(choices=RequirementType.choices, max_length=14)
     description = models.CharField(max_length=5000)
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)
     author = models.ForeignKey(MisiksUser, on_delete=models.SET_NULL, null=True)
-    status = models.IntegerField(default=RequirementStatus.NEW, choices=RequirementStatus.choices)
+    status = models.CharField(default=RequirementStatus.NEW, choices=RequirementStatus.choices, max_length=10)
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, null=True)
     release = models.ForeignKey(Release, related_name='requirements', on_delete=models.SET_NULL, null=True)
 

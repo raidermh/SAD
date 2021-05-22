@@ -14,13 +14,15 @@
         <thead>
             <th>Название</th>
             <th>Статус</th>
+            <th>Автор</th>
             <th>Дата создания</th>
         </thead>
         <tbody>
             {% for project in projects %}
             <tr>
-                <td>{{ project.name }}</td>
+                <td><a href="project/{{ project.id }}/">{{ project.name }}</a></td>
                 <td>{{ project.state }}</td>
+                <td>{{ project.author }}</td>
                 <td>{{ project.create_date }}</td>
             </tr>
             {% endfor %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ project.name }}</h2>
+    <button type="button" id="toggle_change_project">+ Изменить проект</button>
+    <a id="delete" href="./delete">Удалить</a>
+    <form id="change_project" style="display: none;" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Сохранить</button>
+    </form>
+    <div>
+        <div class="quarter">
+            <h3>Состояние:</h3>
+            <p>{{ project.state }}</p>
+            <h3>Автор:</h3>
+            <p>{{ project.author }}</p>
+            <h3>Дата создания:</h3>
+            <p>{{ project.create_date }}</p>
+            <h3>Дата последнего изменения:</h3>
+            <p>{{ project.modify_date }}</p>
+            <h3>Описание:</h3>
+            <p>{{ project.description }}</p>
+        </div>
+        <div class="three_quarters">
+            <h2>Требования:</h2>
+            <button type="button" id="toggle_add_requirement">+ Добавить требование</button>
+            <form id="add_requirement" style="display: none;" method="post">
+                {% csrf_token %}
+                {{ requirement_form }}
+                <button type="submit" style="float:none;">Сохранить</button>
+            </form>
+            <table>
+                <thead>
+                    <th>Название</th>
+                    <th>Тип</th>
+                    <th>Статус</th>
+                    <th>Автор</th>
+                    <th>Дата создания</th>
+                    <th>Релиз</th>
+                </thead>
+                <tbody>
+                    {% for requirement in project.requirements.all %}
+                    <tr>
+                        <td><a href="/requirement/{{ requirement.id }}/">{{ requirement.name }}</a></td>
+                        <td>{{ requirement.type }}</td>
+                        <td>{{ requirement.status }}</td>
+                        <td>{{ requirement.author }}</td>
+                        <td>{{ requirement.create_date }}</td>
+                        <td>{{ requirement.release }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        toggleForm('toggle_change_project', 'change_project');
+        toggleForm('toggle_add_requirement', 'add_requirement');
+    </script>
+{% endblock %}
