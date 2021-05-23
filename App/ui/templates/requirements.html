@@ -1,0 +1,22 @@
+<table>
+    <thead>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Статус</th>
+        <th>Автор</th>
+        <th>Дата создания</th>
+        <th>Релиз</th>
+    </thead>
+    <tbody>
+        {% for requirement in requirements %}
+        <tr>
+            <td><a href="/requirement/{{ requirement.id }}/">{{ requirement.name }}</a></td>
+            <td>{{ requirement.type }}</td>
+            <td>{{ requirement.status }}</td>
+            <td>{{ requirement.author }}</td>
+            <td>{{ requirement.create_date }}</td>
+            <td>{{ requirement.release }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

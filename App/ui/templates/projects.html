@@ -7,8 +7,12 @@
     <button type="button" id="toggle_add_project">+ Добавить проект</button>
     <form id="add_project" style="display: none;" method="post">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Сохранить</button>
+        <div>
+            {{ form }}
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
     </form>
     <table>
         <thead>

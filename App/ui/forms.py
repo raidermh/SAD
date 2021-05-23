@@ -6,15 +6,15 @@ from api import models
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = models.Project
-        fields = ('name', 'author', 'description', 'state')
+        fields = ('name', 'author', 'state', 'description')
         widgets = {
-            'description': forms.Textarea()
+            'description': forms.Textarea(attrs={'rows':3})
         }
         labels = {
             'name': 'Название',
             'author': 'Автор',
-            'description': 'Описание',
-            'state': 'Состояние'
+            'state': 'Состояние',
+            'description': 'Описание'
         }
 
 
@@ -23,7 +23,7 @@ class RequirementForm(forms.ModelForm):
         model = models.Requirement
         fields = ('name', 'type', 'author', 'status', 'description')
         widgets = {
-            'description': forms.Textarea(attrs={'rows':5,'style':'vertical-align:middle;margin-top:0.5rem;'})
+            'description': forms.Textarea(attrs={'rows':5,'cols':30})
         }
         labels = {
             'name': 'Название',

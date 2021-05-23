@@ -8,8 +8,12 @@
     <a id="delete" href="./delete">Удалить</a>
     <form id="change_project" style="display: none;" method="post">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Сохранить</button>
+        <div>
+            {{ form }}
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
     </form>
     <div>
         <div class="quarter">
@@ -29,31 +33,14 @@
             <button type="button" id="toggle_add_requirement">+ Добавить требование</button>
             <form id="add_requirement" style="display: none;" method="post">
                 {% csrf_token %}
-                {{ requirement_form }}
-                <button type="submit" style="float:none;">Сохранить</button>
+                <div>
+                    {{ requirement_form }}
+                </div>
+                <div>
+                    <button type="submit">Сохранить</button>
+                </div>
             </form>
-            <table>
-                <thead>
-                    <th>Название</th>
-                    <th>Тип</th>
-                    <th>Статус</th>
-                    <th>Автор</th>
-                    <th>Дата создания</th>
-                    <th>Релиз</th>
-                </thead>
-                <tbody>
-                    {% for requirement in project.requirements.all %}
-                    <tr>
-                        <td><a href="/requirement/{{ requirement.id }}/">{{ requirement.name }}</a></td>
-                        <td>{{ requirement.type }}</td>
-                        <td>{{ requirement.status }}</td>
-                        <td>{{ requirement.author }}</td>
-                        <td>{{ requirement.create_date }}</td>
-                        <td>{{ requirement.release }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% include 'requirements.html' with requirements=project.requirements.all %}
         </div>
     </div>
     <script>

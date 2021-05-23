@@ -8,8 +8,12 @@
     <a id="delete" href="./delete">Удалить</a>
     <form id="change_requirement" style="display: none;" method="post">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Сохранить</button>
+        <div>
+            {{ form }}
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
     </form>
     <div>
         <div class="quarter">
@@ -29,9 +33,23 @@
         <div class="three_quarters">
             <h3>Описание:</h3>
             <p>{{ requirement.description }}</p>
+            <h2>Дочерние требования:</h2>
+            <button type="button" id="toggle_add_child_requirement">+ Добавить дочернее требование</button>
+            <form id="add_child_requirement" style="display: none;" method="post">
+                {% csrf_token %}
+                <div>
+                    {{ child_form }}
+                    <input type="hidden" name="parent_id" value="{{ requirement.id }}"/>
+                </div>
+                <div>
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+            {% include 'requirements.html' with requirements=requirement.children.all %}
         </div>
     </div>
     <script>
         toggleForm('toggle_change_requirement', 'change_requirement');
+        toggleForm('toggle_add_child_requirement', 'add_child_requirement');
     </script>
 {% endblock %}

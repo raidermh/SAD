@@ -58,12 +58,20 @@ def delete_project(request, project_id):
 def requirement(request, requirement_id):
     requirement = models.Requirement.objects.get(pk=requirement_id)
     if request.method == 'POST':
-        form = forms.RequirementForm(request.POST, instance=requirement)
-        form.save(commit=True)
+        if 'parent_id' in request.POST:
+            child_form = forms.RequirementForm(request.POST)
+            child = child_form.save(commit=False)
+            child.project_id = requirement.project_id
+            child.parent_id = int(request.POST['parent_id'])
+            child.save()
+        else:
+            form = forms.RequirementForm(request.POST, instance=requirement)
+            form.save(commit=True)
     template = loader.get_template('requirement.html')
     context = {
         'requirement': requirement,
-        'form': forms.RequirementForm(instance=requirement)
+        'form': forms.RequirementForm(instance=requirement),
+        'child_form': forms.RequirementForm()
     }
     return HttpResponse(template.render(context, request))
 
