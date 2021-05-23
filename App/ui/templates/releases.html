@@ -3,5 +3,34 @@
 {% block title %}Релизы{% endblock %}
 
 {% block content %}
-    <h2>Здесь будет список релизов</h2>
+    <h2>Список релизов:</h2>
+    <button type="button" id="toggle_add_release">+ Добавить релиз</button>
+    <form id="add_release" style="display: none;" method="post">
+        {% csrf_token %}
+        <div>
+            {{ form }}
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+    <table>
+        <thead>
+            <th>Дата</th>
+            <th>Спецификация</th>
+            <th>Согласовал</th>
+        </thead>
+        <tbody>
+            {% for release in releases %}
+            <tr>
+                <td><a href="/release/{{ release.id }}/">{{ release.date }}</a></td>
+                <td>{{ release.specification }}</td>
+                <td>{{ release.approver }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        toggleForm('toggle_add_release', 'add_release');
+    </script>
 {% endblock %}

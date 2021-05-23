@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ release }}{% endblock %}
+
+{% block content %}
+    <h2>{{ release }}</h2>
+    <button type="button" id="toggle_change_release">+ Изменить релиз</button>
+    <a id="delete" href="./delete">Удалить</a>
+    <form id="change_release" style="display: none;" method="post">
+        {% csrf_token %}
+        <div>
+            {{ form }}
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+    <div>
+        <div class="quarter">
+            <h3>Описание спецификации:</h3>
+            <p>{{ release.specification.description }}</p>
+        </div>
+        <div class="three_quarters">
+            <h2>Требования:</h2>
+            {% include 'requirements.html' with requirements=release.specification.requirements.all hide_release=True %}
+        </div>
+    </div>
+    <script>
+        toggleForm('toggle_change_release', 'change_release');
+    </script>
+{% endblock %}

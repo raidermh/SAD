@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.http import HttpResponse
@@ -86,4 +86,27 @@ def delete_requirement(request, requirement_id):
 
 @login_required
 def releases(request):
-    return render(request, 'releases.html')
+    releases = models.Release.objects.order_by('-date')
+    template = loader.get_template('releases.html')
+    context = {
+        'releases': releases
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def release(request, release_id):
+    release = models.Release.objects.get(pk=release_id)
+    
+    template = loader.get_template('release.html')
+    context = {
+        'release': release
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def delete_release(request, release_id):
+    release = models.Release.objects.get(pk=release_id)
+    release.delete()
+    return redirect(request.build_absolute_uri('/releases/'))

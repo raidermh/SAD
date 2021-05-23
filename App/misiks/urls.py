@@ -23,6 +23,8 @@ urlpatterns = [
     path('requirement/<int:requirement_id>/', ui_views.requirement),
     path('requirement/<int:requirement_id>/delete/', ui_views.delete_requirement),
     path('releases/', ui_views.releases),
+    path('release/<int:release_id>/', ui_views.release),
+    path('release/<int:release_id>/delete/', ui_views.delete_release),
     re_path(r'(.*)logout/$', ui_views.logout_view),
     path('admin/', admin.site.urls),
     path('accounts/login/', auth_views.LoginView.as_view()),

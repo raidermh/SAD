@@ -51,7 +51,7 @@ class Specification(models.Model):
 
 
 class Release(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     approver = models.ForeignKey(MisiksUser, on_delete=models.SET_NULL, null=True)
     specification = models.OneToOneField(Specification, on_delete=models.CASCADE)
 
@@ -83,7 +83,8 @@ class Requirement(models.Model):
     author = models.ForeignKey(MisiksUser, on_delete=models.SET_NULL, null=True)
     status = models.CharField(default=RequirementStatus.NEW, choices=RequirementStatus.choices, max_length=10)
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, null=True)
-    release = models.ForeignKey(Release, related_name='requirements', on_delete=models.SET_NULL, null=True)
+    specification = models.ForeignKey(Specification, related_name='requirements', on_delete=models.SET_NULL, null=True)
+    release = models.ForeignKey(Release, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return "%s %s" % (self.project, self.name)

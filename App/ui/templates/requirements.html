@@ -5,7 +5,9 @@
         <th>Статус</th>
         <th>Автор</th>
         <th>Дата создания</th>
+        {% if not hide_release %}
         <th>Релиз</th>
+        {% endif %}
     </thead>
     <tbody>
         {% for requirement in requirements %}
@@ -15,7 +17,9 @@
             <td>{{ requirement.status }}</td>
             <td>{{ requirement.author }}</td>
             <td>{{ requirement.create_date }}</td>
+            {% if not hide_release %}
             <td>{{ requirement.release }}</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

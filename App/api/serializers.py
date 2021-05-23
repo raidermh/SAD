@@ -10,48 +10,48 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     login = serializers.CharField(source='username')
-    roles = RoleSerializer(many=True, required=False)
+    roles = RoleSerializer(many=True, required=False, read_only=True)
     
     class Meta:
         model = models.MisiksUser
-        fields = ['url', 'login', 'first_name', 'patronymic_name', 'last_name', 'roles']
+        fields = ['url', 'login', 'first_name', 'patronymic_name', 'last_name', 'roles', 'password']
 
 
 class RequirementSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Requirement
         fields = ['url', 'name', 'project', 'type', 'description', 'create_date',\
-        'modify_date', 'author', 'status', 'parent', 'release']
+        'modify_date', 'author', 'status', 'parent', 'specification', 'release']
 
 
 class RequirementWithChildrenSerializer(serializers.HyperlinkedModelSerializer):
-    children = RequirementSerializer(many=True, required=False)
+    children = RequirementSerializer(many=True, required=False, read_only=True)
     
     class Meta:
         model = models.Requirement
         fields = ['url', 'name', 'project', 'type', 'description', 'create_date',\
-        'modify_date', 'author', 'status', 'parent', 'release', 'children']
-
-
-class ReleaseSerializer(serializers.HyperlinkedModelSerializer):
-    requirements = RequirementWithChildrenSerializer(many=True, required=False)
-    
-    class Meta:
-        model = models.Release
-        fields = ['url', 'date', 'specification', 'approver', 'requirements']
+        'modify_date', 'author', 'status', 'parent', 'specification', 'release', 'children']
 
 
 class SpecificationSerializer(serializers.HyperlinkedModelSerializer):
-    release = ReleaseSerializer(read_only=True, required=False)
+    requirements = RequirementWithChildrenSerializer(many=True, required=False, read_only=True)
 
     class Meta:
         model = models.Specification
-        fields = ['url', 'name', 'create_date', 'modify_date', 'release']
+        fields = ['url', 'name', 'create_date', 'modify_date', 'description', 'requirements']
+
+
+class ReleaseSerializer(serializers.HyperlinkedModelSerializer):
+    specification = SpecificationSerializer()
+    
+    class Meta:
+        model = models.Release
+        fields = ['url', 'date', 'specification', 'approver']
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    users = RoleSerializer(many=True, required=False)
-    requirements = RequirementWithChildrenSerializer(many=True, required=False)
+    users = RoleSerializer(many=True, required=False, read_only=True)
+    requirements = RequirementWithChildrenSerializer(many=True, required=False, read_only=True)
     
     class Meta:
         model = models.Project
