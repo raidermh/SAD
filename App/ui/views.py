@@ -89,7 +89,9 @@ def releases(request):
     releases = models.Release.objects.order_by('-date')
     template = loader.get_template('releases.html')
     context = {
-        'releases': releases
+        'releases': releases,
+        'release_form': forms.ReleaseForm(),
+        'specification_form': forms.SpecificationForm()
     }
     return HttpResponse(template.render(context, request))
 
@@ -100,7 +102,9 @@ def release(request, release_id):
     
     template = loader.get_template('release.html')
     context = {
-        'release': release
+        'release': release,
+        'release_form': forms.ReleaseForm(instance=release),
+        'specification_form': forms.SpecificationForm(instance=release.specification)
     }
     return HttpResponse(template.render(context, request))
 

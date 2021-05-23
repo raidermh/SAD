@@ -73,3 +73,7 @@ div#content div.three_quarters {
     width: 75%;
     float: left;
 }
+
+form#add_release :nth-child(10), form#change_release :nth-child(10) {
+    display: block;
+}

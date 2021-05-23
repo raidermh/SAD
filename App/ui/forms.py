@@ -32,3 +32,40 @@ class RequirementForm(forms.ModelForm):
             'status': 'Статус',
             'description': 'Описание'
         }
+
+
+class SpecificationForm(forms.ModelForm):
+    requirements = forms.ModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        queryset=models.Requirement.objects.all(),
+        label='Требования'
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(SpecificationForm, self).__init__(*args, **kwargs)
+        if self.instance.id:
+            self.fields['requirements'].initial = models.Requirement.objects.filter(specification_id=self.instance.id)
+    
+    class Meta:
+        model = models.Specification
+        fields = ('name', 'description')
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':3})
+        }
+        labels = {
+            'name': 'Спецификация',
+            'description': 'Описание'
+        }
+
+
+class ReleaseForm(forms.ModelForm):
+    class Meta:
+        model = models.Release
+        fields = ('date', 'approver')
+        widgets = {
+            'date': forms.DateInput(attrs={'type':'date'})
+        }
+        labels = {
+            'date': 'Дата релиза',
+            'approver': 'Согласующий'
+        }

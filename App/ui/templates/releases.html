@@ -8,7 +8,9 @@
     <form id="add_release" style="display: none;" method="post">
         {% csrf_token %}
         <div>
-            {{ form }}
+            {{ release_form }}
+            <br/>
+            {{ specification_form }}
         </div>
         <div>
             <button type="submit">Сохранить</button>
