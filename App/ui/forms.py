@@ -38,7 +38,8 @@ class SpecificationForm(forms.ModelForm):
     requirements = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         queryset=models.Requirement.objects.all(),
-        label='Требования'
+        label='Требования',
+        required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -46,6 +47,12 @@ class SpecificationForm(forms.ModelForm):
         if self.instance.id:
             self.fields['requirements'].initial = models.Requirement.objects.filter(specification_id=self.instance.id)
     
+    def save(self, requirements):
+        specification = super(SpecificationForm, self).save(commit=False)
+        specification.save()
+        specification.requirements.set(models.Requirement.objects.filter(pk__in=requirements))
+        return specification
+
     class Meta:
         model = models.Specification
         fields = ('name', 'description')

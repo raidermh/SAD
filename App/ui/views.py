@@ -86,6 +86,13 @@ def delete_requirement(request, requirement_id):
 
 @login_required
 def releases(request):
+    if request.method == 'POST':
+        specification_form = forms.SpecificationForm(request.POST)
+        release_form = forms.ReleaseForm(request.POST)
+        release = release_form.save(commit=False)
+        release.specification = specification_form.save(request.POST.getlist('requirements'))
+        release.save()
+        release.specification.requirements.update(release_id=release.id)
     releases = models.Release.objects.order_by('-date')
     template = loader.get_template('releases.html')
     context = {
@@ -99,7 +106,13 @@ def releases(request):
 @login_required
 def release(request, release_id):
     release = models.Release.objects.get(pk=release_id)
-    
+    if request.method == 'POST':
+        specification_form = forms.SpecificationForm(request.POST, instance=release.specification)
+        release_form = forms.ReleaseForm(request.POST, instance=release)
+        release = release_form.save(commit=False)
+        release.specification = specification_form.save(request.POST.getlist('requirements'))
+        release.save()
+        release.specification.requirements.update(release_id=release.id)
     template = loader.get_template('release.html')
     context = {
         'release': release,
